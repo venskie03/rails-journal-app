@@ -1,0 +1,70 @@
+
+<div class="container bg-[#34495E] w-4/6 mt-10 p-12 m-auto rounded-lg max-h-[590px] shadow-lg shadow-gray-400 relative">
+  <p class="text-lg font-semibold text-white mb-5">Category: <%= @category.categories_name %></p>
+  <div class="scroll overflow-y-scroll max-h-[400px]">
+    <% @tasks.each do |task| %>
+      <div class="mb-6 border-b border-gray-300 pb-4">
+        <p class="text-white"><strong>Task Name:</strong> <%= task.task_name %></p>
+        <p class="text-white"><strong>Task Description:</strong> <%= task.task_description %></p>
+        <p class="text-white"><strong>Task Date:</strong> <%= task.task_date %></p>
+         <% if task.task_date.present? && task.task_date.future? %>
+          <p class="text-white"><strong>Days Left:</strong> <%= (task.task_date.to_date - Date.today).to_i %> days</p>
+        <% else %>
+          <p class="text-green-500">Task has already Completed</p>
+        <% end %>
+        <div class="mt-2 flex">
+          <%= link_to "Edit Task", edit_category_task_path(task.id), class: "text-blue-500 mr-4" %>
+          <div class="text-green-500 mr-5">
+            <a href="#" onclick="openTaskModal('<%= task.task_name %>', '<%= task.task_description %>', '<%= task.task_date %>')" class="text-green-500">View</a>
+          </div>
+          <%= link_to "Delete", task, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "text-red-500" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="taskModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 items-center justify-center">
+    <div class="bg-white p-8 m-auto rounded-lg max-w-md">
+      <h2 class="text-lg font-semibold mb-4">Task Details</h2>
+      <p><strong>Task Name:</strong> <span id="modalTaskName"></span></p>
+      <p><strong>Task Description:</strong> <span id="modalTaskDescription"></span></p>
+      <p><strong>Task Date:</strong> <span id="modalTaskDate"></span></p>
+      <p><strong>Days Left:</strong> <span id="modalDaysLeft"></span></p>
+      <button onclick="closeTaskModal()" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"> <%= link_to 'Close', category_tasks_path(category_id: @category.id), class: 'text-yellow-500' %></button>
+    </div>
+  </div>
+
+  <div class="text-center grid">
+    <%= link_to 'Create New Task', add_task_path(category_id: @category.id), class: "text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md p-2 text-white font-semibold mt-4 cursor-pointer" %>
+     <%= link_to "Back", categories_path, class: "text-white mt-2" %>
+  </div>
+
+ <script>
+  function openTaskModal(name, description, date) {
+  document.getElementById('modalTaskName').innerText = name;
+  document.getElementById('modalTaskDescription').innerText = description;
+  document.getElementById('modalTaskDate').innerText = date;
+
+  var taskDate = new Date(date);
+  var currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for consistent date comparison
+  taskDate.setHours(0, 0, 0, 0);
+
+  var daysLeft = Math.ceil((taskDate - currentDate) / (1000 * 60 * 60 * 24));
+
+  if (daysLeft > 0) {
+    document.getElementById('modalDaysLeft').innerText = daysLeft + ' days';
+  } else if (daysLeft === 0) {
+    document.getElementById('modalDaysLeft').innerText = 'Today';
+  } else {
+    document.getElementById('modalDaysLeft').innerText = 'Task has already Completed';
+  }
+
+  document.getElementById('taskModal').classList.remove('hidden');
+}
+
+function closeTaskModal() {
+  document.getElementById('taskModal').classList.add('hidden');
+}
+</script>
+</div>

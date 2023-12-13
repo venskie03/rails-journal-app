@@ -1,0 +1,47 @@
+<div class="container bg-[#34495E] w-max mt-24 p-12 m-auto rounded-lg shadow-lg shadow-gray-400 text-center">
+  <h1 class="text-white">REGISTER</h1>
+<form action="/users" method="POST" class="grid">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+
+         <div class="relative mb-4">
+      <input type="username" name="user[username]" placeholder="Username"  class="bg-transparent  border-b-2 border-white text-white hover:bg-[#546E7A] pl-10 pr-4 py-2" >
+      <ion-icon name="people-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-lg"></ion-icon>
+       </div> 
+
+         <div class="relative mb-4">
+        <input type="email" name="user[email]" placeholder="Email"  class="bg-transparent  border-b-2 border-white text-white hover:bg-[#546E7A] pl-10 pr-4 py-2" >
+      <ion-icon name="mail-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-lg"></ion-icon>
+       </div> 
+
+     <div class="relative mb-4">
+    <input type="password" name="user[password]" placeholder="Password"  class="bg-transparent  border-b-2 border-white text-white hover:bg-[#546E7A] pl-10 pr-4 py-2" >
+      <ion-icon name="lock-closed-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-lg"></ion-icon>
+       </div> 
+
+       <div class="relative mb-4">
+     <input type="password" name="user[password_confirmation]" placeholder="Confirm Password"  class="bg-transparent  border-b-2 border-white text-white hover:bg-[#546E7A] pl-10 pr-4 py-2" >
+      <ion-icon name="lock-closed-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-lg"></ion-icon>
+       </div> 
+
+    <input class="bg-gradient-to-r from-cyan-500 to-blue-500 ... rounded-md p-2 text-white font-semibold mt-4 cursor-pointer" type="submit" name="submit" value="Register">
+</form>
+<div class="sign-up mt-10 flex justify-center">
+    <p class="text-sm text-white">Already Have an Account?</p> 
+        <p class="text-sm ml-2 text-[#18FFFF]"><%= link_to "Sign In", sign_in_path%></p>
+</div>
+
+<div class="errors text-[#EF5350]">
+  <% if flash[:error_register].present? %>
+    <% flash[:error_register].each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+  <% end %>
+</div>
+<div class="success text-[#18FFFF]">
+  <% if flash[:success_register].present? %>
+    <% flash[:success_register].each do |success| %>
+      <p><%= success %></p>
+    <% end %>
+  <% end %>
+</div>
+</div>

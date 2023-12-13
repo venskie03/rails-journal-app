@@ -1,0 +1,29 @@
+<div class="container bg-[#34495E] w-max mt-36 p-12 m-auto rounded-lg shadow-lg shadow-gray-400 text-center">
+    <h1 class="font-semibold font-sans text-2xl mb-3 text-white">LOGIN</h1>
+<form action="/sessions" method="POST" class="grid">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+        
+       <div class="relative mb-4">
+   <input  class="bg-transparent  border-b-2 border-white text-white hover:bg-[#546E7A] pl-10 pr-4 py-2" 
+    type="email" name="login[email]"  placeholder="Email">
+      <ion-icon name="mail-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-lg"></ion-icon>
+       </div> 
+
+  <div class="relative mb-4">
+         <input class="bg-transparent border-b-2 border-white p-2 text-white hover:bg-[#546E7A] pl-10 pr-4 py-2" type="password" name="login[password]" placeholder="Password">
+      <ion-icon name="lock-closed-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-lg"></ion-icon>
+       </div> 
+    <input class="bg-gradient-to-r from-cyan-500 to-blue-500 ... rounded-md p-2 text-white font-semibold mt-4 cursor-pointer" type="submit" name="submit" value="Login">
+</form>
+<div class="errors mt-5 text-[#EF5350]">
+    <% if flash[:error_login]%>
+    <% flash[:error_login].each do |error|%>
+    <p><%= error%></p>
+    <%end%>
+    <%end%>
+</div>
+<div class="sign-up mt-10 flex justify-center">
+    <p class="text-sm text-white">Don't Have an Account?</p> 
+      <p class="text-sm ml-2 text-[#18FFFF] cursor-pointer"><%= link_to "Sign Up", new_users_path %></p>
+</div>
+</div>

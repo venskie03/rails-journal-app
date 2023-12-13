@@ -1,0 +1,26 @@
+<%= render 'navbar' %>
+<div class="container bg-[#34495E] w-4/6 mt-14 p-12 m-auto rounded-lg max-h-full shadow-lg shadow-gray-400">
+   <div class="details text-white font-sans font-semibold flex">Entries <%= link_to new_category_path do %>
+  <ion-icon name="add-circle-outline" class="mt-1"></ion-icon>
+<% end %></div> 
+<div class="scroll h-96 overflow-y-scroll">
+   <div class="categories-container text-white font-sans font-semibold mt-4">
+
+    <div class="all-categories flex flex-col">
+      <% @categories.each do |category| %>
+        <div class="category-item bg-gray-800 p-4 my-2 rounded-md">
+      <span class="text-[#18FFFF]"><%= category.created_at.strftime('%B %d, %Y') %></span>
+          <p><strong><%= category.categories_name %></strong></p>
+          <p class="font-thin"><%= category.description %></p>
+
+          <%= link_to 'Edit Category', edit_category_url(category.id), class: 'text-blue-500 mr-2' %>
+          <%= link_to "Delete", category, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'text-red-500 mr-2' %>
+          <%= link_to 'Add Tasks', add_task_path(category_id: category.id), class: 'text-green-500 mr-2' %>
+          <%= link_to 'View Tasks', category_tasks_path(category_id: category.id), class: 'text-yellow-500' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+</div>

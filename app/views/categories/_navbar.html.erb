@@ -1,0 +1,35 @@
+<div class="nav-container flex bg-[#34495E] items-center p-4">
+  <div class="flex-grow ml-4 flex">
+    <ion-icon name="book-outline" class="mt-1 text-3xl text-yellow-500"></ion-icon>
+    <h1 class="font-sans font-bold gradient-text ml-4 text-2xl bg-gradient-to-r from-cyan-400
+     to-yellow-300">Journal App</h1>
+  </div>
+
+  <% if @user.username? %>
+    <div class="flex items-center">
+      <p class="text-yellow-100 mr-4">Welcome, @<%= @current_user.username %></p>
+      <a href="<%= sign_out_path %>" data-method="delete" class="hidden text-white hover:text-gray-300 transition-opacity duration-500 ease-in-out">
+        Sign Out
+      </a>
+    </div>
+  <% else %>
+    <%= link_to "Sign Up", new_users_path, class: "text-white hover:text-gray-300" %>
+  <% end %>
+
+  <ion-icon name="caret-down-circle-outline" id="user-icon" class="text-yellow-400 ml-4 cursor-pointer"></ion-icon>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var userIcon = document.getElementById("user-icon");
+  var signOutLink = document.querySelector(".nav-container a");
+
+  userIcon.addEventListener("click", function() {
+    // Toggle the display of the "Sign Out" link with animation
+    const isHidden = signOutLink.classList.contains("hidden");
+    signOutLink.style.display = isHidden ? "block" : "none";
+    signOutLink.classList.toggle("hidden");
+    userIcon.setAttribute("name", isHidden ? "caret-up-circle-outline" : "caret-down-circle-outline");
+  });
+});
+</script>

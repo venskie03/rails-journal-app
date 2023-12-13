@@ -1,0 +1,38 @@
+<div class="container bg-[#34495E] w-4/6 mt-24 p-12 m-auto rounded-lg shadow-lg shadow-gray-400">
+  <h1 class="text-white text-2xl font-semibold mb-4">Edit Task</h1>
+
+  <%= form_with(model: @task, url: task_path(@task), method: :patch) do |form| %>
+    <div class="mb-4">
+      <label for="task_name" class="text-white">Task Name</label>
+      <%= form.text_field :task_name, class: "w-full p-2 rounded-md" %>
+    </div>
+
+    <div class="mb-4">
+      <label for="task_description" class="text-white">Task Description</label>
+      <%= form.text_area :task_description, class: "w-full p-2 rounded-md" %>
+    </div>
+
+    <div class="mb-4">
+      <label for="task_date" class="text-white">Task Date</label>
+      <%= form.date_field :task_date, class: "w-full p-2 rounded-md" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.submit 'Update Task', class: "bg-blue-500 text-white px-4 py-2 rounded-md" %>
+    </div>
+  <% end %>
+
+  <div class="errors text-green-500">
+    <% if flash[:success_updated].present? %>
+      <% flash[:success_updated].each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    <% end %>
+
+    <% if flash[:error_update].present? %>
+      <% flash[:error_update].each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
